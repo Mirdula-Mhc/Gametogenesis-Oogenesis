@@ -19,9 +19,18 @@ using UnityEngine.InputSystem;
 // Input is routed through Pointer.current (new Input System) rather
 // than OnMouseDown, so this behaves consistently for touch on WebGL
 // builds, matching ClickAnimManager's raycast approach.
+//
+// Drag plane: each entry now specifies which two axes the object is
+// allowed to move on while dragging (the third stays fixed at its
+// starting value). This is set via PageEntry.dragPlane:
+//   XY -> moves on X/Y, Z fixed   (Vector3.forward as plane normal)
+//   XZ -> moves on X/Z, Y fixed   (Vector3.up as plane normal)
+//   YZ -> moves on Y/Z, X fixed   (Vector3.right as plane normal)
 // -----------------------------------------------------------------
 public class DragDropAnimManager : MonoBehaviour
 {
+    public enum DragPlane { XY, XZ, YZ }
+
     [System.Serializable]
     public class PageEntry
     {
@@ -32,6 +41,9 @@ public class DragDropAnimManager : MonoBehaviour
 
         [Tooltip("Trigger collider marking the valid drop zone. Must have 'Is Trigger' checked.")]
         public Collider snapZone;
+
+        [Tooltip("Which plane the object is constrained to while dragging. The axis not listed stays fixed at its value when the drag started.")]
+        public DragPlane dragPlane = DragPlane.XY;
 
         [Tooltip("If true, only bounding-box overlap is required to snap — rotation is ignored entirely. If false, the object's rotation must also be within snapAngle of snapZone's rotation.")]
         public bool overlapOnly = true;
@@ -63,6 +75,11 @@ public class DragDropAnimManager : MonoBehaviour
     private bool dragging = false;
     private Transform draggedTransform;
     private Vector3 dragPlaneOffset;
+
+    // Which plane the object currently being dragged is constrained to.
+    // Set at the start of a drag from the active PageEntry so
+    // ScreenToPlanePoint knows which axis to hold fixed.
+    private DragPlane currentDragPlane;
 
     // Cached so we can re-enable it if a drop fails and the object
     // returns to its start position/rotation.
@@ -136,6 +153,7 @@ public class DragDropAnimManager : MonoBehaviour
         draggedTransform = entry.dragTarget.transform;
         dragStartPosition = draggedTransform.position;
         dragStartRotation = draggedTransform.rotation;
+        currentDragPlane = entry.dragPlane;
         dragging = true;
 
         // Disable Animator for the duration of the drag so it doesn't
@@ -173,12 +191,27 @@ public class DragDropAnimManager : MonoBehaviour
     {
         Ray ray = raycastCamera.ScreenPointToRay(screenPos);
 
-        // XY plane — allows movement on X and Y,
-        // while keeping Z fixed.
-        Plane plane = new Plane(
-            Vector3.forward,
-            new Vector3(0, 0, draggedTransform.position.z)
-        );
+        // Pick the plane normal based on which two axes this entry
+        // drags on. The normal is the axis that stays FIXED.
+        //   XY drag -> Z fixed -> normal = Vector3.forward
+        //   XZ drag -> Y fixed -> normal = Vector3.up
+        //   YZ drag -> X fixed -> normal = Vector3.right
+        Vector3 normal;
+        switch (currentDragPlane)
+        {
+            case DragPlane.XZ:
+                normal = Vector3.up;
+                break;
+            case DragPlane.YZ:
+                normal = Vector3.right;
+                break;
+            case DragPlane.XY:
+            default:
+                normal = Vector3.forward;
+                break;
+        }
+
+        Plane plane = new Plane(normal, draggedTransform.position);
 
         if (plane.Raycast(ray, out float enter))
             return ray.GetPoint(enter);
