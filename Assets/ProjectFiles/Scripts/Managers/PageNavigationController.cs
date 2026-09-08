@@ -116,6 +116,40 @@ public class PageNavigationController : MonoBehaviour
         OnPageChanged?.Invoke(currentIndex);
     }
 
+    //private void UpdateButtons()
+    //{
+    //    if (testing)
+    //    {
+    //        SetNormalButtonState();
+    //        return;
+    //    }
+
+    //    bool needsInteraction =
+    //        currentIndex < requiresInteraction.Count &&
+    //        requiresInteraction[currentIndex];
+
+    //    bool isCompleted = completedPages.Contains(currentIndex);
+
+    //    // Previous behaves normally
+    //    if (previousButton)
+    //        previousButton.interactable = currentIndex > 0;
+
+
+    //    // Next
+    //    if (nextButton)
+    //    {
+    //        if (!needsInteraction)
+    //        {
+    //            nextButton.interactable = true;
+    //        }
+    //        else
+    //        {
+    //            nextButton.interactable = isCompleted;
+    //        }
+    //    }
+
+    //}
+
     private void UpdateButtons()
     {
         if (testing)
@@ -130,22 +164,13 @@ public class PageNavigationController : MonoBehaviour
 
         bool isCompleted = completedPages.Contains(currentIndex);
 
-        // Previous behaves normally
-        if (previousButton)
-            previousButton.interactable = currentIndex > 0;
+        bool interactable = !needsInteraction || isCompleted;
 
-        // Next
+        if (previousButton)
+            previousButton.interactable = interactable && currentIndex > 0;
+
         if (nextButton)
-        {
-            if (!needsInteraction)
-            {
-                nextButton.interactable = true;
-            }
-            else
-            {
-                nextButton.interactable = isCompleted;
-            }
-        }
+            nextButton.interactable = interactable;
     }
 
     private void SetNormalButtonState()

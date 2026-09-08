@@ -3,7 +3,172 @@ guid: cf2e3d039312e75428ff099c4da8198a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Biology Table.001
+    second: {fileID: 2100000, guid: ba42945b2ee770b42869a2dcbfba8945, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Concave_Mirror
+    second: {fileID: 2100000, guid: bfce4fe84cda7c34496dad9a735995d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lens fluid bottle.001
+    second: {fileID: 2100000, guid: 23c8339a408e1df4db5535b895451656, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 6e50ed94b6404fa46851e4e8a2e43990, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: compound_microscope_rig_ma_lambert11.001
+    second: {fileID: 2100000, guid: 9de51121b42956e43a3af428ffb617d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1.003
+    second: {fileID: 2100000, guid: 264cb6842b4e33a46a4a97ff4ce72ce1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1.004
+    second: {fileID: 2100000, guid: 037d1fe26095bba41b38127d64b1b3e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1.005
+    second: {fileID: 2100000, guid: 132054ff02b478a49828cde22a3ccc38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3
+    second: {fileID: 2100000, guid: 27511989deaefde4a8fb171f348116c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3.001
+    second: {fileID: 2100000, guid: bd07f188695c3ef4a96905f7e94a8e69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert5
+    second: {fileID: 2100000, guid: 0f0164bd0c05aec4fad8861720c37596, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__ black
+    second: {fileID: 2100000, guid: 7852189fff0217a4d9b68a0cf8e234f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__ black1
+    second: {fileID: 2100000, guid: 01cd01e9dabb84a409e25e8051d4cc1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__test tube  glass1
+    second: {fileID: 2100000, guid: 3ef8a5c404386aa42be20c387c4c0035, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: permanent_slides.001
+    second: {fileID: 2100000, guid: e52a9e0b6692abc4f930bbb87644d85b, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Biology Table_Biology Table_AlbedoTransparency
+    second: {fileID: 2800000, guid: 1d1977c6a8078344485cb10d6c85bc08, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Biology Table_Biology Table_MetallicSmoothness
+    second: {fileID: 2800000, guid: fc2f3a97c80814e4e89fc741020baf9d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Biology Table_Biology Table_Normal
+    second: {fileID: 2800000, guid: 1960cd534dd69264dae7d6e6972b0494, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Lens cleaning liquid_Lens fluid bottle2k_BaseColor
+    second: {fileID: 2800000, guid: 970b0a601ced7d84a9c4b0bc02b35286, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Lens cleaning liquid_Lens fluid bottle2k_Height
+    second: {fileID: 2800000, guid: d2de119e80a5ca34ea78b357a135e7a7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Lens cleaning liquid_Lens fluid bottle2k_Normal
+    second: {fileID: 2800000, guid: 63bb8ea3e995bfe45af822ba1756727b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: MICROS~1
+    second: {fileID: 2800000, guid: 48536e70feb98ff4eb615b7e57120f24, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: MICROS~2
+    second: {fileID: 2800000, guid: 854d4aacd0afffb48a3fa2335a81cee1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cleaning paper and fluid_lambert1_AlbedoTransparency
+    second: {fileID: 2800000, guid: cb69781382b48044a883282e1ab1994f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cleaning paper and fluid_lambert1_MetallicSmoothness
+    second: {fileID: 2800000, guid: b4709997ea41ad442baa3faa9a41ed97, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cleaning paper and fluid_lambert1_Normal
+    second: {fileID: 2800000, guid: b4c04ac456e5ed346b456782e6bfbd82, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: forcep model 2_lambert1_BaseColor
+    second: {fileID: 2800000, guid: 4a6def5c742e9c5488f65fb53c215651, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: forcep model 2_lambert1_Height
+    second: {fileID: 2800000, guid: 9479c5a12da0f774fad106753e1cada4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: forcep model 2_lambert1_Normal
+    second: {fileID: 2800000, guid: c595de87a8de3e04892278663e1c1f1c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: microscope_updated_microscope_Normal
+    second: {fileID: 2800000, guid: bf0339b07a6769a44adf45bbf48c20a3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: permanent slides with box full_permanent_slides with box 4k_AlbedoTransparency
+    second: {fileID: 2800000, guid: 1e4b717ed328a9144b04512f06acedef, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: permanent slides with box full_permanent_slides with box 4k_MetallicSmoothness
+    second: {fileID: 2800000, guid: 9010cbf9d3e40d540b3f01686dab3c60, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: permanent slides with box full_permanent_slides with box 4k_Normal
+    second: {fileID: 2800000, guid: 17d08d3b519c6144785cc323c964d9f0, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

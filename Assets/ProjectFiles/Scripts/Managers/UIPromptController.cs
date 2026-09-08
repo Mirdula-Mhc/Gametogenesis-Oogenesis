@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,14 +9,6 @@ public class UIPromptController : MonoBehaviour
 {
     [Header("Pages")]
     [SerializeField] private PageData[] pages;
-
-    [Header("Dialog UI")]
-    [SerializeField] private GameObject dialogPanel;
-    [SerializeField] private Image dialogImage;
-    [SerializeField] private TextMeshProUGUI dialogText;
-
-    [Header("Common Dialog Sprite")]
-    [SerializeField] private Sprite commonDialogSprite;
 
     private int currentPageIndex = -1;
 
@@ -50,30 +40,26 @@ public class UIPromptController : MonoBehaviour
     {
         PageData page = pages[index];
 
-        if (dialogPanel)
-            dialogPanel.SetActive(false);
+        ResetAllMainPanels();
+        ResetAllAlternatePanels();
 
-        ResetAllPanels();
+        if (page.showMainPanel && page.mainPanel != null)
+            page.mainPanel.SetActive(true);
 
-        if (!page.showDialogBox && !page.showAlternatePanels)
-            return;
-
-        if (page.showDialogBox)
-        {
-            if (dialogPanel)
-                dialogPanel.SetActive(true);
-
-            if (dialogText)
-                dialogText.text = page.pageText;
-
-            if (dialogImage)
-                dialogImage.sprite = commonDialogSprite;
-        }
-
-        ApplyPanelVisibility(index);
+        if (page.showAlternatePanels)
+            ApplyPanelVisibility(index);
     }
 
-    private void ResetAllPanels()
+    private void ResetAllMainPanels()
+    {
+        foreach (var p in pages)
+        {
+            if (p.mainPanel != null)
+                p.mainPanel.SetActive(false);
+        }
+    }
+
+    private void ResetAllAlternatePanels()
     {
         foreach (var p in pages)
         {
@@ -102,20 +88,15 @@ public class UIPromptController : MonoBehaviour
                 if (panelData == null || panelData.panel == null)
                     continue;
 
-                // 🚀 NEW: Enable Once Logic
-                if (panelData.enableOnce && panelData.hasBeenEnabledOnce)
-                    continue;
-
                 if (i == currentIndex)
                 {
+                    // Always show on its own page, even on revisit.
                     panelData.panel.SetActive(true);
-
-                    if (panelData.enableOnce)
-                        panelData.hasBeenEnabledOnce = true;
+                    panelData.hasBeenEnabledOnce = true;
                 }
                 else if (panelData.stayInUpcomingPages)
                 {
-                    // Only allow staying panels if not restricted by enableOnce
+                    // Only suppress the "carry forward" behavior once enableOnce has fired.
                     if (!panelData.enableOnce || !panelData.hasBeenEnabledOnce)
                     {
                         panelData.panel.SetActive(true);
@@ -132,14 +113,13 @@ public class PageData
     [Header("Page Name / Page No")]
     public string pageName;
 
-    [TextArea]
-    public string pageText;
-
-    [Header("Display Options")]
-    public bool showDialogBox;
-    public bool showAlternatePanels;
+    [Header("Main Panel For This Page")]
+    [Tooltip("The panel to show for this page e.g. Info, DragAndDrop, etc. Each panel carries its own content/mechanism.")]
+    public bool showMainPanel;
+    public GameObject mainPanel;
 
     [Header("Alternate Panels For This Page")]
+    public bool showAlternatePanels;
     public List<AlternatePanelData> alternatePanels;
 }
 
