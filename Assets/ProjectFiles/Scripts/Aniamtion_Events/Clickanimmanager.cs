@@ -107,29 +107,50 @@ public class ClickAnimManager : MonoBehaviour
         if (entry.targetRenderers == null || entry.targetRenderers.Count == 0 || entry.highlightMaterial == null)
             return;
 
-        // Rebuild the cache if it's missing or out of sync with the current
-        // renderer list (e.g. the list was edited in the Inspector after a
-        // previous highlight pass already cached it).
-        if (entry.originalMaterials == null || entry.originalMaterials.Count != entry.targetRenderers.Count)
-        {
-            entry.originalMaterials = new List<Material>();
-            foreach (var r in entry.targetRenderers)
-                entry.originalMaterials.Add(r != null ? r.material : null);
-        }
-
         foreach (var r in entry.targetRenderers)
-            if (r != null) r.material = entry.highlightMaterial;
+        {
+            if (r == null) continue;
+
+            // Avoid stacking duplicates if ApplyHighlight is called twice.
+            var mats = r.materials; // instance copy
+            bool alreadyApplied = System.Array.IndexOf(mats, entry.highlightMaterial) >= 0
+                || (mats.Length > 0 && mats[mats.Length - 1] != null
+                    && mats[mats.Length - 1].name.Replace("(Instance)", "").Trim() == entry.highlightMaterial.name);
+
+            if (alreadyApplied) continue;
+
+            var newMats = new Material[mats.Length + 1];
+            mats.CopyTo(newMats, 0);
+            newMats[newMats.Length - 1] = entry.highlightMaterial;
+            r.materials = newMats;
+        }
     }
 
     private void ClearHighlight(PageEntry entry)
     {
-        if (entry.targetRenderers == null || entry.originalMaterials == null) return;
+        if (entry.targetRenderers == null) return;
 
-        int count = Mathf.Min(entry.targetRenderers.Count, entry.originalMaterials.Count);
-        for (int i = 0; i < count; i++)
-            if (entry.targetRenderers[i] != null && entry.originalMaterials[i] != null)
-                entry.targetRenderers[i].material = entry.originalMaterials[i];
+        foreach (var r in entry.targetRenderers)
+        {
+            if (r == null) continue;
+
+            var mats = r.materials;
+            if (mats.Length == 0) continue;
+
+            // Remove the last slot only if it's the highlight material we added.
+            var lastMat = mats[mats.Length - 1];
+            bool isHighlight = lastMat != null
+                && lastMat.name.Replace("(Instance)", "").Trim() == entry.highlightMaterial.name;
+
+            if (!isHighlight) continue;
+
+            var trimmed = new Material[mats.Length - 1];
+            System.Array.Copy(mats, trimmed, trimmed.Length);
+            r.materials = trimmed;
+        }
     }
+
+   
 
     private void OnEntryClicked(int pageIndex, PageEntry entry)
     {
